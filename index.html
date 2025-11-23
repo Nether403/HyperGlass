@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketch-to-Code Prototyper</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              orbitron: ['Orbitron', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                orange: '#f97316', // Orange-500
+                red: '#dc2626',    // Red-600
+                void: '#020617',   // Slate-950
+                glass: 'rgba(2, 6, 23, 0.4)',
+              }
+            },
+            backgroundImage: {
+              'void-gradient': 'radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%)',
+              'brand-gradient': 'linear-gradient(to right, #ea580c, #dc2626)',
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scan': 'scan 2s linear infinite',
+            },
+            keyframes: {
+              scan: {
+                '0%': { top: '0%' },
+                '100%': { top: '100%' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom scrollbar for code blocks */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020617; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155; 
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569; 
+      }
+
+      /* The "Void" Background Layer */
+      .bg-void {
+        background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%);
+        position: fixed; inset: 0; z-index: -10;
+      }
+
+      /* Noise Texture */
+      .noise {
+        position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* Scanlines */
+      .scanlines {
+        position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.3;
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+        background-size: 100% 4px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-syntax-highlighter/": "https://aistudiocdn.com/react-syntax-highlighter@^16.1.0/",
+    "react-syntax-highlighter": "https://aistudiocdn.com/react-syntax-highlighter@^16.1.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-950 text-slate-200 overflow-hidden font-sans antialiased selection:bg-orange-500/30 selection:text-white">
+    <div class="bg-void"></div>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+    <div id="root" class="relative z-0 h-full"></div>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Sketch-to-Code Prototyper",
+  "description": "Instantly transform hand-drawn sketches and wireframes into functional Tailwind CSS and React code using Gemini 3 Pro Image Preview.",
+  "requestFramePermissions": []
+}
